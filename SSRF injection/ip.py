@@ -91,20 +91,24 @@ def plain2EnclosedAlphanumericsChar(s0):
 def convertIP2EnclosedAlphanumericsValue():
 	IPAddressParts4EnclosedAlphanumerics = arg1.split(".")
 	returnEnclosedAlphanumericsIPAddress = ""
-	for x in range(0,4):
+	for x in range(4):
 		if len(IPAddressParts4EnclosedAlphanumerics[x]) == 3 and (int(IPAddressParts4EnclosedAlphanumerics[x][0]+IPAddressParts4EnclosedAlphanumerics[x][1])) <= 20 and (int(IPAddressParts4EnclosedAlphanumerics[x][0]+IPAddressParts4EnclosedAlphanumerics[x][1]+IPAddressParts4EnclosedAlphanumerics[x][2])) >= 10:
-			returnEnclosedAlphanumericsIPAddress = returnEnclosedAlphanumericsIPAddress + plain2EnclosedAlphanumericsChar(IPAddressParts4EnclosedAlphanumerics[x][0]+IPAddressParts4EnclosedAlphanumerics[x][1]);
-			returnEnclosedAlphanumericsIPAddress = returnEnclosedAlphanumericsIPAddress + plain2EnclosedAlphanumericsChar(IPAddressParts4EnclosedAlphanumerics[x][2]);
-			if x <= 2:
-				returnEnclosedAlphanumericsIPAddress = returnEnclosedAlphanumericsIPAddress + plain2EnclosedAlphanumericsChar('.');
+			returnEnclosedAlphanumericsIPAddress += plain2EnclosedAlphanumericsChar(
+			    IPAddressParts4EnclosedAlphanumerics[x][0] +
+			    IPAddressParts4EnclosedAlphanumerics[x][1]);
+			returnEnclosedAlphanumericsIPAddress += plain2EnclosedAlphanumericsChar(
+			    IPAddressParts4EnclosedAlphanumerics[x][2]);
 		else:
-			returnEnclosedAlphanumericsIPAddress = returnEnclosedAlphanumericsIPAddress + plain2EnclosedAlphanumericsChar(IPAddressParts4EnclosedAlphanumerics[x][0]);
+			returnEnclosedAlphanumericsIPAddress += plain2EnclosedAlphanumericsChar(
+			    IPAddressParts4EnclosedAlphanumerics[x][0]);
 			if len(IPAddressParts4EnclosedAlphanumerics[x]) >= 2:
-				returnEnclosedAlphanumericsIPAddress = returnEnclosedAlphanumericsIPAddress + plain2EnclosedAlphanumericsChar(IPAddressParts4EnclosedAlphanumerics[x][1]);
+				returnEnclosedAlphanumericsIPAddress += plain2EnclosedAlphanumericsChar(
+				    IPAddressParts4EnclosedAlphanumerics[x][1]);
 			if len(IPAddressParts4EnclosedAlphanumerics[x]) == 3:
-				returnEnclosedAlphanumericsIPAddress = returnEnclosedAlphanumericsIPAddress + plain2EnclosedAlphanumericsChar(IPAddressParts4EnclosedAlphanumerics[x][2]);
-			if x <= 2:
-				returnEnclosedAlphanumericsIPAddress = returnEnclosedAlphanumericsIPAddress + plain2EnclosedAlphanumericsChar('.');
+				returnEnclosedAlphanumericsIPAddress += plain2EnclosedAlphanumericsChar(
+				    IPAddressParts4EnclosedAlphanumerics[x][2]);
+		if x <= 2:
+			returnEnclosedAlphanumericsIPAddress += plain2EnclosedAlphanumericsChar('.');
 	return returnEnclosedAlphanumericsIPAddress
 
 def convert(s, recurse_chunks=True, error_on_miss=False):
@@ -153,10 +157,7 @@ if EXPORTRESULTS == 'export':
 	FILENAME = "export-" + arg1 + "-" + str(datetime.datetime.now().strftime("%H-%M-%d-%m-%Y"))+'.txt'
 	pythonversion = (platform.python_version())
 	major, minor, patchlevel = pythonversion.split(".")
-	if major == "3":
-		f = open(FILENAME, 'w')
-	else:
-		f = open(FILENAME, 'wb')
+	f = open(FILENAME, 'w') if major == "3" else open(FILENAME, 'wb')
 elif EXPORTRESULTS != '':
 	print("\nUsage: python "+sys.argv[0]+" IP WhiteListedDomain EXPORT(optional)\nUsage: python "+sys.argv[0]+" 169.254.169.254 80 www.google.com\nUsage: python "+sys.argv[0]+" 169.254.169.254 80 www.google.com export")
 	exit(1)

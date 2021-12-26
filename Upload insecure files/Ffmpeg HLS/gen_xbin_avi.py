@@ -76,9 +76,7 @@ def test_xbin_sync(seq):
 
 def echo_seq(s):
     assert len(s) % 16 == 0
-    res = []
-    for i in range(0, len(s), 16):
-        res.append(echo_block(s[i:i + 16]))
+    res = [echo_block(s[i:i + 16]) for i in range(0, len(s), 16)]
     return ''.join(res)
 
 
